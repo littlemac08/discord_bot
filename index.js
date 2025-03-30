@@ -289,34 +289,25 @@ client.on('messageCreate', async (message) => {
 
 // 서버 설정을 먼저 실행
 function keepAlive() {
-    // Render가 제공하는 PORT 환경변수 사용
     const PORT = process.env.PORT || 3000;
     
     server.get("/", (req, res) => {
         res.send("Bot is running!");
     });
 
-    // 서버 시작 전에 에러 핸들러 등록
     server.on('error', (error) => {
         console.error('Server error:', error);
     });
 
-    // 명시적으로 호스트 지정
     server.listen(PORT, '0.0.0.0', () => {
         console.log(`Server is running on port ${PORT}`);
     });
 }
 
-// 봇이 준비되었을 때 서버도 시작
-client.once('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}`);
-    await initializeDataFiles();
-    keepAlive(); // 서버 시작
-});
-
-// client.login을 마지막에 실행
+// client.login은 마지막에 한 번만 실행
 client.login(process.env.DISCORD_TOKEN);
 
+// keepAlive 함수만 export
 module.exports = keepAlive;
 
 
