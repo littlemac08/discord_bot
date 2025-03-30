@@ -287,40 +287,23 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-//keepAlive 함수를 수정하여 self-ping 시스템 추가
+// 서버 설정을 먼저 실행
 function keepAlive() {
+    // Render가 제공하는 PORT 환경변수 사용
     const PORT = process.env.PORT || 3000;
     
-    // 서버 상태 모니터링을 위한 상세 엔드포인트 추가
-    server.get("/health", (req, res) => {
-        res.status(200).json({
-            status: "healthy",
-            uptime: process.uptime(),
-            timestamp: new Date()
-        });
-    });
-
-    // 기존 루트 엔드포인트는 유지
     server.get("/", (req, res) => {
-        res.status(200).send("Bot is running!");
+        res.send("Bot is running!");
     });
 
-    server.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-
-    // 서버 에러 처리
+    // 서버 시작 전에 에러 핸들러 등록
     server.on('error', (error) => {
         console.error('Server error:', error);
     });
 
-    // 프로세스 예외 처리
-    process.on('uncaughtException', (error) => {
-        console.error('Uncaught Exception:', error);
-    });
-
-    process.on('unhandledRejection', (error) => {
-        console.error('Unhandled Rejection:', error);
+    // 명시적으로 호스트 지정
+    server.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server is running on port ${PORT}`);
     });
 }
 
