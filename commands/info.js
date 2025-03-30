@@ -4,6 +4,7 @@ function handleInfoCommand(message) {
         "!ask [질문내용] - 질문하기\n" +
         "!usage - 현재 월 사용량 확인\n" +
         "!stats - 이번 달 검색 통계 확인\n" +
+        "!calendar [년도] [월] - 달력 보기 (예: !calendar 2024 3)\n" +
         "(API 사용량 제한으로 인해 30초에 한 번만 질문할 수 있습니다)";
     return message.reply(infoMessage);
 }

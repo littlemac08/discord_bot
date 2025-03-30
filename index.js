@@ -12,6 +12,7 @@ const { handleAskCommand } = require('./commands/ask');
 const { handleUsageCommand } = require('./commands/usage');
 const { handleStatsCommand } = require('./commands/stats');
 const { handleInfoCommand } = require('./commands/info');
+const { handleCalendarCommand } = require('./commands/calendar');
 
 const server = express();
 const client = new Client({ 
@@ -61,6 +62,11 @@ client.on('messageCreate', async (message) => {
 
     if (message.content.startsWith('!ask')) {
         await handleAskCommand(message);
+        return;
+    }
+
+    if (message.content.startsWith('!calendar')) {
+        await handleCalendarCommand(message);
         return;
     }
 });
