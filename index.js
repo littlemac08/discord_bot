@@ -23,6 +23,22 @@ const client = new Client({
     ] 
 });
 
+// 서버 설정
+const PORT = process.env.PORT || 3000;
+
+server.get("/", (req, res) => {
+    res.send("Bot is running!");
+});
+
+server.on('error', (error) => {
+    console.error('Server error:', error);
+});
+
+// 서버 시작
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
 // 최근 처리한 메시지를 저장할 Set (중복 처리 방지)
 const processedMessages = new Set();
 const MESSAGE_CACHE_LIFETIME = 5000; // 5초 동안 메시지 캐시 유지
@@ -77,23 +93,7 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-// 서버 설정을 먼저 실행
-function keepAlive() {
-    const PORT = process.env.PORT || 3000;
-    
-    server.get("/", (req, res) => {
-        res.send("Bot is running!");
-    });
-
-    server.on('error', (error) => {
-        console.error('Server error:', error);
-    });
-
-    server.listen(PORT, '0.0.0.0', () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}
-
+// 봇 로그인
 client.login(process.env.DISCORD_TOKEN);
 
 module.exports = keepAlive;
