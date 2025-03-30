@@ -3,9 +3,9 @@ const { ref, get, set, push, update, remove, query, orderByChild, startAt } = re
 const { MONTHLY_COST_LIMIT } = require('../config/config');
 
 // Firebase 레퍼런스
-const eventsRef = ref(database, 'events');
 const usageRef = ref(database, 'usage');
 const historyRef = ref(database, 'history');
+const eventsRef = ref(database, 'events');
 
 // 초기 데이터 구조
 const defaultUsageData = {
@@ -14,6 +14,23 @@ const defaultUsageData = {
     totalCost: 0,
     totalTokens: 0
 };
+
+// 데이터 초기화
+async function initializeDataFiles() {
+    try {
+        // usage 데이터 초기화
+        const usageSnapshot = await get(usageRef);
+        if (!usageSnapshot.exists()) {
+            await set(usageRef, defaultUsageData);
+        }
+        
+        console.log('데이터 초기화 완료');
+        return true;
+    } catch (error) {
+        console.error('데이터 초기화 실패:', error);
+        return false;
+    }
+}
 
 // 현재 월 사용량 조회
 async function getCurrentMonthUsage() {
@@ -180,6 +197,7 @@ async function updateEventAttendee(eventId, userId, status) {
 }
 
 module.exports = {
+    initializeDataFiles,
     getCurrentMonthUsage,
     updateUsage,
     createEvent,

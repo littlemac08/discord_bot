@@ -29,9 +29,15 @@ const MESSAGE_CACHE_LIFETIME = 5000; // 5초 동안 메시지 캐시 유지
 
 // 봇 초기화
 client.once('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}`);
-    await initializeDataFiles();
-    keepAlive(); // 서버 시작
+    try {
+        // 데이터 초기화
+        await initializeDataFiles();
+        console.log('데이터 초기화 완료');
+        
+        console.log(`Logged in as ${client.user.tag}!`);
+    } catch (error) {
+        console.error('초기화 중 오류 발생:', error);
+    }
 });
 
 // 명령어 처리
