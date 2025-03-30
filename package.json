@@ -1,5 +1,5 @@
 {
-  "name": "discord-perplexity-bot",
+  "name": "discord-chatgpt-bot",
   "version": "1.0.0",
   "description": "Discord bot using Perplexity API",
   "main": "index.js",
@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "discord.js": "^14.x",
+    "dotenv": "^16.x",
     "express": "^4.x",
-    "node-fetch": "^2.x",
-    "dotenv": "^16.x"
+    "node-fetch": "^2.x"
   },
   "engines": {
     "node": ">=16.x"
