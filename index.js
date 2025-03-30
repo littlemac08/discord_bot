@@ -1,4 +1,8 @@
-require('dotenv').config(); // dotenv를 사용하여 환경 변수를 읽어옵니다.
+// 개발 환경에서만 dotenv 사용
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const { Client, GatewayIntentBits } = require('discord.js');
 const fetch = require('node-fetch');
 const fs = require('fs').promises;
