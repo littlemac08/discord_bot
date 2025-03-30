@@ -6,9 +6,17 @@ const firebaseConfig = {
     databaseURL: 'https://askbot-65036-default-rtdb.asia-southeast1.firebasedatabase.app'
 };
 
-// Firebase 초기화
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+let database;
+
+try {
+    // Firebase 초기화
+    const app = initializeApp(firebaseConfig);
+    database = getDatabase(app);
+    console.log('Firebase 초기화 성공');
+} catch (error) {
+    console.error('Firebase 초기화 실패:', error);
+    process.exit(1);  // 치명적인 오류이므로 프로세스 종료
+}
 
 // 연결 테스트
 async function testConnection() {

@@ -11,7 +11,10 @@
     "discord.js": "^14.x",
     "dotenv": "^16.x",
     "express": "^4.x",
-    "node-fetch": "^2.x"
+    "node-fetch": "^2.x",
+    "firebase": "^10.8.0",
+    "chrono-node": "^2.7.5",
+    "date-fns": "^3.6.0"
   },
   "engines": {
     "node": ">=16.x"
