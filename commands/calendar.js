@@ -17,7 +17,7 @@ function generateCalendar(year = new Date().getFullYear(), month = new Date().ge
 
     // 첫 주의 빈 공간 추가
     let currentDay = 1;
-    let currentWeek = "   ".repeat(startingDay);
+    let currentWeek = " ".repeat(4 * startingDay);
 
     // 날짜 채우기
     while (currentDay <= monthLength) {
@@ -25,7 +25,7 @@ function generateCalendar(year = new Date().getFullYear(), month = new Date().ge
             calendar += currentWeek.trimEnd() + "\n";
             currentWeek = "";
         }
-        currentWeek += currentDay.toString().padStart(2) + "   ";
+        currentWeek += currentDay.toString().padStart(2) + "    ";
         currentDay++;
     }
 
