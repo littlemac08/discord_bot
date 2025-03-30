@@ -29,13 +29,11 @@ function generateCalendar(year = new Date().getFullYear(), month = new Date().ge
     // 날짜 채우기
     while (currentDay <= monthLength) {
         if ((currentDay + startingDay - 1) % 7 === 0 && currentDay !== 1) {
-            calendar += currentWeek + "│\n";
-            if (currentDay <= monthLength) {
-                calendar += "├────┼────┼────┼────┼────┼────┼────┤\n";
-            }
+            calendar += currentWeek + "│\n├────┼────┼────┼────┼────┼────┼────┤\n";
             currentWeek = "";
         }
-        currentWeek += `│ ${currentDay.toString().padStart(2)} `;
+        const paddedDay = currentDay.toString().padStart(2);
+        currentWeek += `│  ${paddedDay}`;
         currentDay++;
     }
 
