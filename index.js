@@ -96,6 +96,4 @@ client.on('messageCreate', async (message) => {
 // 봇 로그인
 client.login(process.env.DISCORD_TOKEN);
 
-module.exports = keepAlive;
-
 
