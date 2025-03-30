@@ -233,7 +233,7 @@ client.on('messageCreate', async (message) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    model: 'sonar-small-chat',
+                    model: 'sonar-small-online',
                     messages: [
                         {
                             role: 'system',
