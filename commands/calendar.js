@@ -12,9 +12,9 @@ function generateCalendar(year = new Date().getFullYear(), month = new Date().ge
     // 달력 헤더 생성
     let calendar = `\`\`\`
 ${year}년 ${monthNames[month]}
-┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-│  일  │  월  │  화  │  수  │  목  │  금  │  토  │
-├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+┌────┬────┬────┬────┬────┬────┬────┐
+│ 일 │ 월 │ 화 │ 수 │ 목 │ 금 │ 토 │
+├────┼────┼────┼────┼────┼────┼────┤
 `;
 
     // 날짜 채우기
@@ -23,28 +23,28 @@ ${year}년 ${monthNames[month]}
     
     // 첫 주의 빈 공간 추가
     for (let i = 0; i < startingDay; i++) {
-        currentWeek += "│      ";
+        currentWeek += "│    ";
     }
 
     // 날짜 채우기
     while (currentDay <= monthLength) {
         if ((currentDay + startingDay - 1) % 7 === 0 && currentDay !== 1) {
-            calendar += currentWeek + "│\n├──────┼──────┼──────┼──────┼──────┼──────┼──────┤\n";
+            calendar += currentWeek + "│\n├────┼────┼────┼────┼────┼────┼────┤\n";
             currentWeek = "";
         }
         const paddedDay = currentDay.toString().padStart(2);
-        currentWeek += `│  ${paddedDay}  `;
+        currentWeek += `│ ${paddedDay} `;
         currentDay++;
     }
 
     // 마지막 주의 남은 공간 채우기
     while ((currentDay + startingDay - 1) % 7 !== 0) {
-        currentWeek += "│      ";
+        currentWeek += "│    ";
         currentDay++;
     }
 
     // 마지막 주 추가
-    calendar += currentWeek + "│\n└──────┴──────┴──────┴──────┴──────┴──────┴──────┘";
+    calendar += currentWeek + "│\n└────┴────┴────┴────┴────┴────┴────┘";
     calendar += "\n\`\`\`";
     return calendar;
 }
