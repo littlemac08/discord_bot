@@ -174,6 +174,7 @@ async function handleStatsCommand(message) {
 client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}`);
     await initializeDataFiles();
+    keepAlive(); // 서버 시작
 });
 
 client.on('messageCreate', async (message) => {
@@ -286,19 +287,52 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-//discord Bot의 토큰을 전달하여 로그인합니다.
-client.login(process.env.DISCORD_TOKEN);
-
-server.get("/", (req, res) => {
-    res.status(200).send("Bot is running!");
-});
-
+//keepAlive 함수를 수정하여 self-ping 시스템 추가
 function keepAlive() {
     const PORT = process.env.PORT || 3000;
+    
+    // 서버 상태 모니터링을 위한 상세 엔드포인트 추가
+    server.get("/health", (req, res) => {
+        res.status(200).json({
+            status: "healthy",
+            uptime: process.uptime(),
+            timestamp: new Date()
+        });
+    });
+
+    // 기존 루트 엔드포인트는 유지
+    server.get("/", (req, res) => {
+        res.status(200).send("Bot is running!");
+    });
+
     server.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
+
+    // 서버 에러 처리
+    server.on('error', (error) => {
+        console.error('Server error:', error);
+    });
+
+    // 프로세스 예외 처리
+    process.on('uncaughtException', (error) => {
+        console.error('Uncaught Exception:', error);
+    });
+
+    process.on('unhandledRejection', (error) => {
+        console.error('Unhandled Rejection:', error);
+    });
 }
+
+// 봇이 준비되었을 때 서버도 시작
+client.once('ready', async () => {
+    console.log(`Logged in as ${client.user.tag}`);
+    await initializeDataFiles();
+    keepAlive(); // 서버 시작
+});
+
+// client.login을 마지막에 실행
+client.login(process.env.DISCORD_TOKEN);
 
 module.exports = keepAlive;
 
