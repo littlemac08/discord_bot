@@ -22,6 +22,10 @@ const client = new Client({
     ] 
 });
 
+// 최근 처리한 메시지를 저장할 Set (중복 처리 방지)
+const processedMessages = new Set();
+const MESSAGE_CACHE_LIFETIME = 5000; // 5초 동안 메시지 캐시 유지
+
 // 봇 초기화
 client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}`);
@@ -32,6 +36,13 @@ client.once('ready', async () => {
 // 명령어 처리
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
+
+    // 메시지 중복 처리 방지
+    const messageKey = `${message.id}-${message.content}`;
+    if (processedMessages.has(messageKey)) return;
+    
+    processedMessages.add(messageKey);
+    setTimeout(() => processedMessages.delete(messageKey), MESSAGE_CACHE_LIFETIME);
 
     if (message.content === '!askbot') {
         await handleInfoCommand(message);
