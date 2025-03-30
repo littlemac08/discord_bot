@@ -8,13 +8,18 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "@discordjs/rest": "^2.4.3",
+    "chrono-node": "^2.7.5",
+    "date-fns": "^3.6.0",
+    "discord-api-types": "^0.37.119",
     "discord.js": "^14.x",
     "dotenv": "^16.x",
     "express": "^4.x",
-    "node-fetch": "^2.x",
     "firebase": "^10.8.0",
-    "chrono-node": "^2.7.5",
-    "date-fns": "^3.6.0"
+    "node-fetch": "^2.x",
+    "punycode": "^2.3.1",
+    "tr46": "^5.1.0",
+    "whatwg-url": "^14.2.0"
   },
   "engines": {
     "node": ">=16.x"
